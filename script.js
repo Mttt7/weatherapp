@@ -23,14 +23,16 @@ const searchButton = document.querySelector('#search-button')
 const searchBar = document.querySelector('#search-bar')
 
 async function getWeather(city){
+    let time = new Date()
     await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=27e1317dd7a01c91b570e159116336c3`)
     .then((response)=>{
         return response.json()
     })
     .then(data=>{
-        
+        let time2 = new Date()
         const city = new City(data.name,data.weather[0].description,data.main.temp,data.main.temp_max,data.main.temp_min,data.main.feels_like,data.main.humidity,data.wind.speed)
         displayWeather(city)
+        console.log(time2-time)
     })
     .catch(e=>{
         searchBar.value='No such city found'
